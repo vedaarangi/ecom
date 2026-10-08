@@ -5,6 +5,7 @@ use Botble\Ads\Models\Ads;
 use Botble\Base\Facades\Assets;
 use Botble\Base\Facades\BaseHelper;
 use Botble\Media\Facades\RvMedia;
+use Botble\Menu\Facades\Menu;
 use Botble\Newsletter\Facades\Newsletter;
 use Botble\Page\Forms\PageForm;
 use Botble\Page\Models\Page;
@@ -88,6 +89,8 @@ if (! function_exists('get_currencies_json')) {
 }
 
 app()->booted(function (): void {
+    Menu::addMenuLocation('main-menu', __('Main Navigation'));
+
     if (is_plugin_active('newsletter')) {
         Newsletter::registerNewsletterPopup();
     }

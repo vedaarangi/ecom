@@ -7,7 +7,11 @@
         <div class="for-megamenu p-relative">
             <div class="container">
                 <div class="row align-items-center">
-                    @if(Theme::get('hasCategoriesDropdown', true))
+                    @php
+                        $hasCategories = Theme::get('hasCategoriesDropdown', true) && isset($categories) && count($categories);
+                    @endphp
+
+                    @if($hasCategories)
                         <div class="col-xl-2 col-lg-3">
                             {!! Theme::partial('categories-dropdown') !!}
                         </div>
@@ -19,7 +23,7 @@
                             </div>
                         </div>
                     @else
-                        <div class="col-lg-9">
+                        <div class="col-xl-9 col-lg-9 col-12">
                             <div class="main-menu">
                                 <nav id="mobile-menu">
                                     {!! Menu::renderMenuLocation('main-menu', ['view' => 'menu']) !!}
