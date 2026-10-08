@@ -1057,4 +1057,8 @@ app()->booted(function (): void {
                 ]);
         });
     }
+
+    Shortcode::register('b2b-quote-form', __('B2B Quote Form'), __('B2B Quote Form'), function (ShortcodeCompiler $shortcode) {
+        return Theme::partial('b2b-quote-form', compact('shortcode'));
+    });
 });
