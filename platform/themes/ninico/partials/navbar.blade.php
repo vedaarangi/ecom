@@ -150,7 +150,7 @@
     </button>
 
     <div class="tpsideinfo__nabtab mt-30 mb-4">
-        {!! Theme::partial('mobile.categories-tab-content', compact('categories')) !!}
+        {!! Theme::partial('mobile.categories-tab-content', ['categories' => $categories ?? collect()]) !!}
     </div>
 </div>
 

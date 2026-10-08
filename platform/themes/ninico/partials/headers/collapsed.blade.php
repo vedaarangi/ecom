@@ -1,14 +1,24 @@
 <header class="main-header">
     {!! Theme::partial('header-top') !!}
-    <div class="logo-area pt-30 d-none d-xl-block">
+    <div class="logo-area pt-30 d-none d-lg-block">
         {!! Theme::partial('header-middle') !!}
     </div>
-    <div class="main-menu-area pt-20 d-none d-xl-block">
+    <div class="main-menu-area pt-20 d-none d-lg-block">
         <div class="for-megamenu p-relative">
             <div class="container">
                 <div class="row align-items-center">
                     @php
                         $hasCategories = Theme::get('hasCategoriesDropdown', true) && isset($categories) && count($categories);
+                        $menuHtml = Menu::renderMenuLocation('main-menu', ['view' => 'menu']);
+                        if (empty(trim($menuHtml ?? ''))) {
+                            $menuHtml = Menu::renderMenuLocation('main-menu');
+                        }
+                        if (empty(trim($menuHtml ?? ''))) {
+                            $firstMenu = \Botble\Menu\Models\Menu::wherePublished()->first();
+                            if ($firstMenu) {
+                                $menuHtml = Menu::generateMenu(['slug' => $firstMenu->slug, 'view' => 'menu']);
+                            }
+                        }
                     @endphp
 
                     @if($hasCategories)
@@ -18,7 +28,7 @@
                         <div class="col-xl-7 col-lg-6">
                             <div class="main-menu">
                                 <nav id="mobile-menu">
-                                    {!! Menu::renderMenuLocation('main-menu', ['view' => 'menu']) !!}
+                                    {!! $menuHtml !!}
                                 </nav>
                             </div>
                         </div>
@@ -26,7 +36,7 @@
                         <div class="col-xl-9 col-lg-9 col-12">
                             <div class="main-menu">
                                 <nav id="mobile-menu">
-                                    {!! Menu::renderMenuLocation('main-menu', ['view' => 'menu']) !!}
+                                    {!! $menuHtml !!}
                                 </nav>
                             </div>
                         </div>

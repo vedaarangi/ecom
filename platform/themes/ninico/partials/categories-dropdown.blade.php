@@ -1,5 +1,6 @@
 @php
-    $groupedCategories = $categories->groupBy('parent_id');
+    $categories = $categories ?? collect();
+    $groupedCategories = $categories ? $categories->groupBy('parent_id') : collect();
 
     $currentCategories = $groupedCategories->get(0);
     $limit = theme_option('ecommerce_header_categories_limit', 10);

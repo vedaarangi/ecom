@@ -1,6 +1,6 @@
 <header class="main-header">
     {!! Theme::partial('header-top') !!}
-    <div class="main-menu-area d-none d-xl-block">
+    <div class="main-menu-area d-none d-lg-block">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-9">
@@ -9,7 +9,19 @@
                         <div class="mainmenu__main d-flex align-items-center p-relative">
                             <div class="main-menu">
                                 <nav id="mobile-menu">
-                                    {!! Menu::renderMenuLocation('main-menu', ['view' => 'menu']) !!}
+                                    @php
+                                        $menuHtml = Menu::renderMenuLocation('main-menu', ['view' => 'menu']);
+                                        if (empty(trim($menuHtml ?? ''))) {
+                                            $menuHtml = Menu::renderMenuLocation('main-menu');
+                                        }
+                                        if (empty(trim($menuHtml ?? ''))) {
+                                            $firstMenu = \Botble\Menu\Models\Menu::wherePublished()->first();
+                                            if ($firstMenu) {
+                                                $menuHtml = Menu::generateMenu(['slug' => $firstMenu->slug, 'view' => 'menu']);
+                                            }
+                                        }
+                                    @endphp
+                                    {!! $menuHtml !!}
                                 </nav>
                             </div>
                         </div>
