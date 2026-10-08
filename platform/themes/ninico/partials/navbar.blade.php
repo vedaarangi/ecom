@@ -4,7 +4,7 @@
     </div>
 @endif
 
-<div id="header-tab-sticky" class="tp-md-lg-header d-none d-md-block d-xl-none pt-30 pb-30">
+<div id="header-tab-sticky" class="tp-md-lg-header d-none d-md-block d-lg-none pt-30 pb-30">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-3 col-md-4 d-flex align-items-center">
