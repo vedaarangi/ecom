@@ -190,13 +190,15 @@ class BaseServiceProvider extends ServiceProvider
             BaseHelper::iniSet('memory_limit', $configMemoryLimit);
         }
 
-        if ($maxExecutionTime === null) {
-            $maxExecutionTime = @ini_get('max_execution_time');
-        }
+        if (! $this->app->runningInConsole()) {
+            if ($maxExecutionTime === null) {
+                $maxExecutionTime = @ini_get('max_execution_time');
+            }
 
-        $configMaxExecutionTime = Arr::get($baseConfig, 'max_execution_time');
-        if ($maxExecutionTime < $configMaxExecutionTime) {
-            BaseHelper::iniSet('max_execution_time', $configMaxExecutionTime);
+            $configMaxExecutionTime = Arr::get($baseConfig, 'max_execution_time');
+            if ((int) $maxExecutionTime !== 0 && (int) $maxExecutionTime < (int) $configMaxExecutionTime) {
+                BaseHelper::iniSet('max_execution_time', $configMaxExecutionTime);
+            }
         }
     }
 
